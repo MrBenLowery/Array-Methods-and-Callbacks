@@ -13,23 +13,23 @@ console.log(finals2014);
 
 //(a) Home Team name for 2014 world cup final
 
-
+console.log('task 1a', finals2014[0]['Home Team Name'])
 
 //(b) Away Team name for 2014 world cup final
 
-
+console.log('task 1b', finals2014[0]['Away Team Name'])
 
 //(c) Home Team goals for 2014 world cup final
 
-
+console.log('task 1c', finals2014[0]['Home Team Goals'])
 
 //(d) Away Team goals for 2014 world cup final
 
-
+console.log('task 1d', finals2014[0]['Away Team Goals'])
 
 //(e) Winner of 2014 world cup final */
 
-
+console.log('task 1e', finals2014[0]['Win conditions'])
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -40,10 +40,13 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-    /* code here */
+function getFinals(data) {
+    const allFinals = data.filter(function (item) {
+        return item.Stage === 'Final'
+    })
+    return allFinals;
 }
-
+console.log(getFinals(fifaData));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -94,8 +97,13 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+function getWinnersByYear(array, getFinalscb, getYearscb, getWinnerscb) {
+    const winners = getWinnerscb(array, getFinalscb)
+    const years = getYearscb(array, getFinalscb)
+    const returnArray = winners.map((teams, index) => {
+        return `In ${years[index]}, ${teams} won the world cup!`
+    })
+    return returnArray;
 }
 
 
@@ -110,8 +118,11 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-    /* code here */
+function getAverageGoals(data) {
+    const averageHomeGoals = data.reduce(function (acc, item) {
+        return acc + item['Home Team Goals'] + item['Away Team Goals'];
+    }, 0)
+    return (averageHomeGoals / data.length).toFixed(2);
 }
 
 
